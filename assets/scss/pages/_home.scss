@@ -280,3 +280,24 @@
     }
   }
 }
+
+//商品頁面-下拉式選單
+.product-container{
+  padding-bottom: 60px;
+}
+
+.product-category{
+  width: 25%;
+  color: #818A91;
+  padding: 8px;
+  margin-bottom: 32px;
+  border: 1px solid #CED4DA;
+  border-radius: 4px;
+  outline: none;
+    option{
+      color: #212529;
+    }
+    @include Medium{
+      width: 100%;
+    }
+}
