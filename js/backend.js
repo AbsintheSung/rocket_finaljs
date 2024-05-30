@@ -75,3 +75,35 @@ function paidStatus(status) {
     return status ? '已處理' : '未處理';
 }
 
+//動態建立表單內容
+function createOrder(array) {
+    const orderTbody = document.querySelector('.admin-table tbody');
+    let str = '';
+
+    array.forEach(function (item) {
+        let paidStr = paidStatus(item.paid)
+        let productsStr = createProductItem(item.products)
+        let createDate = createOrderTime(item.createdAt)
+        str += `<tr>
+                <td>${item.id}</td>
+                <td>
+                    <p>${item.user.name}</p>
+                    <p>${item.user.tel}</p>
+                </td>
+                <td>${item.user.address}</td>
+                <td>${item.user.email}</td>
+                <td>
+                    ${productsStr}
+                </td>
+                <td>${createDate}</td>
+                <td class="orderStatus">
+                    <button class="orderStatus" value="status"  data-id=${item.id}>${paidStr}</button>
+                </td>
+                <td>
+                    <button class="deleteOneBtn" value="delete"  data-id=${item.id}>刪除</button>
+                </td>
+            </tr>`
+    })
+    orderTbody.innerHTML = str
+}
+
