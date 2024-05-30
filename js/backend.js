@@ -52,9 +52,20 @@ const data = {
     ]
 }
 
+//訂單日期
 function createOrderTime(orderTime) {
     let temp = new Date(orderTime * 1000);
     let date = `<p>${temp.getFullYear()}/${temp.getMonth() + 1}/${temp.getDate()}</p>`;
     return date
 }
 
+//訂日項目 數量 金額
+function createProductItem(array) {
+    let temp = ''
+    array.forEach(function (item) {
+        let num = item.price * item.quantity
+        temp += `<p><span>${item.title}(${item.price})</span> * <span>${item.quantity}</span></p><br>
+        <p>共:${num}元</p><br>`
+    })
+    return temp
+}
