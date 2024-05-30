@@ -3,9 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>管理員</title>
+    <link
+      rel="stylesheet"
+      href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
   </head>
   <body>
+    <header class="container-fluid">
+      <nav class="container nav-container">
+        <h1 class="logo"><a href="#">WOWOROOM</a></h1>
+        <div class="baffle-bar"></div>
+        <input type="checkbox" id="navbarBtn" />
+        <label for="navbarBtn" class="navbarBtn-label"
+          ><i class="fa-solid fa-bars"></i
+        ></label>
+        <ul class="nav-list">
+          <li class="nav-list__item"><a href="#">後臺管理</a></li>
+          <li class="nav-list__item"><a href="#">管理員登入</a></li>
+        </ul>
+      </nav>
+      <div class="border-bar"></div>
+    </header>
     <script type="module" src="../js/scss.js"></script>
   </body>
 </html>
