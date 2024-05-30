@@ -1,83 +1,52 @@
+.orderTable {
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
 .admin-table {
-  width: 100%;
+  width: calc(1110px - 30px);
   margin: 0 auto;
   border-collapse: collapse;
 }
 
 .admin-table {
-  width: 100%;
-  margin: 0 auto;
-  border-collapse: collapse;
+  thead {
+    tr {
+      th {
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px;
+        text-align: left;
+        border: 1px solid black;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px;
+        text-align: center;
+        border: 1px solid black;
+      }
+      td:last-child {
+        padding: 0px;
+      }
+    }
+  }
 }
-
-.admin-table thead {
-  // background-color: #ee2828;
-}
-
-.admin-table thead tr th {
+.orderStatus {
+  border: none;
+  background-color: transparent;
+  color: blue;
   font-size: 16px;
-  font-weight: 500;
-  padding: 12px;
-  text-align: left;
-  border: 1px solid black;
 }
-
-.admin-table tbody tr td {
+.orderstatus:hover {
+  text-decoration: underline;
+}
+.deleteOneBtn {
+  background-color: #c44021;
+  color: #ffffff;
+  border: none;
   font-size: 16px;
-  font-weight: normal;
-  padding: 12px;
-  text-align: center;
-  border: 1px solid black;
 }
-
-// .text_open {
-//     font-size: 14px;
-//     font-weight: bold;
-//     letter-spacing: 0.35px;
-//     color: #FF1046;
-// }
-
-// .table tbody tr td .btn {
-//     width: 130px;
-//     text-decoration: none;
-//     line-height: 35px;
-//     /* display: block; */
-//     background-color: #FF1046;
-//     font-weight: 500;
-//     color: #FFFFFF;
-//     text-align: center;
-//     user-select: none;
-// }
-
-// @media (max-width:768px) {
-//     .table thead {
-//         display: none;
-//     }
-
-//     .table,
-//     .table tbody,
-//     .table tr,
-//     .table td {
-//         display: block;
-//         width: 100%;
-//     }
-
-//     .table tr {
-//         margin-bottom: 15px;
-//     }
-
-//     .table tbody tr td {
-//         text-align: right;
-//         padding-left: 50%;
-//         position: relative;
-//     }
-
-//     .table td::before {
-//         content: attr(data-label);
-//         position: absolute;
-//         left: 0;
-//         /* width: 50%; */
-//         padding-left: 15px;
-//         font-weight: 600;
-//     }
-// }
