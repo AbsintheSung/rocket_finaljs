@@ -45,6 +45,7 @@
   font-weight: bold;
   padding: 10px 20px;
   background-color: transparent;
+  border: 2px solid rgb(0, 0, 0);
   border-radius: 10px;
   margin: 20px 0px;
   display: block;
@@ -56,12 +57,24 @@
   color: blue;
   font-size: 16px;
 }
-.orderstatus:hover {
+.orderStatus:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 .deleteOneBtn {
   background-color: #c44021;
   color: #ffffff;
   border: none;
   font-size: 16px;
+}
+.deleteAllBtn:hover,
+.deleteOneBtn:hover {
+  cursor: pointer;
+}
+.deleteAllBtn:hover {
+  background-color: #c44021;
+  border: 2px solid rgb(255, 255, 255);
+}
+.deleteOneBtn:hover {
+  color: black;
 }
