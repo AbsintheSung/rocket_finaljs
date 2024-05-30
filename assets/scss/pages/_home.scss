@@ -291,7 +291,7 @@ main{
 }
 
 .product-category{
-  width: 25%;
+  width: 245px;
   color: #818A91;
   padding: 8px;
   margin-bottom: 32px;
@@ -312,9 +312,16 @@ main{
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 30px;
   font-size: 20px;
+  @include Medium{
+    grid-template-columns: repeat(2, 1fr);
+    font-size: 18px;
+  }
   .product-cards{
     position: relative;
     padding-bottom: 30px;
+    @include Medium{
+      padding-bottom: 15px;
+    }
     span{
       position: absolute;
       right: -3px;
@@ -322,10 +329,14 @@ main{
       padding: 8px 24px;
       color: #fff;
       background-color: #000000;
+      @include Medium{
+        font-size: 16px;
+      }
     }
     img{
-      display: block;
       width: 100%;
+      display: block;
+      object-fit: cover;
     }
     a{
       display: block;
@@ -339,6 +350,9 @@ main{
     }
     p{
       font-size: 28px;
+      @include Medium{
+        font-size: 24px;
+      }
     }
   }
 }
