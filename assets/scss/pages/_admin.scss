@@ -1,0 +1,66 @@
+.table-container {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.orderTable {
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+.admin-table {
+  width: calc(1110px - 30px);
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.admin-table {
+  thead {
+    tr {
+      th {
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px;
+        text-align: left;
+        border: 1px solid black;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px;
+        text-align: center;
+        border: 1px solid black;
+      }
+      td:last-child {
+        padding: 0px;
+      }
+    }
+  }
+}
+.deleteAllBtn {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 20px;
+  background-color: transparent;
+  border-radius: 10px;
+  margin: 20px 0px;
+  display: block;
+  margin-left: auto;
+}
+.orderStatus {
+  border: none;
+  background-color: transparent;
+  color: blue;
+  font-size: 16px;
+}
+.orderstatus:hover {
+  text-decoration: underline;
+}
+.deleteOneBtn {
+  background-color: #c44021;
+  color: #ffffff;
+  border: none;
+  font-size: 16px;
+}

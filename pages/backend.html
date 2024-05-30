@@ -1,30 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>管理員</title>
-    <link
-      rel="stylesheet"
-      href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css"
-    />
-  </head>
-  <body>
-    <header class="container-fluid">
-      <nav class="container nav-container">
-        <h1 class="logo"><a href="#">WOWOROOM</a></h1>
-        <div class="baffle-bar"></div>
-        <input type="checkbox" id="navbarBtn" />
-        <label for="navbarBtn" class="navbarBtn-label"
-          ><i class="fa-solid fa-bars"></i
-        ></label>
-        <ul class="nav-list">
-          <li class="nav-list__item"><a href="#">後臺管理</a></li>
-          <li class="nav-list__item"><a href="#">管理員登入</a></li>
-        </ul>
-      </nav>
-      <div class="border-bar"></div>
-    </header>
-    <script type="module" src="../js/scss.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理員</title>
+  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <header class="container-fluid">
+    <nav class="container nav-container">
+      <h1 class="logo"><a href="#">WOWOROOM</a></h1>
+      <div class="baffle-bar"></div>
+      <input type="checkbox" id="navbarBtn" />
+      <label for="navbarBtn" class="navbarBtn-label"><i class="fa-solid fa-bars"></i></label>
+      <ul class="nav-list">
+        <li class="nav-list__item"><a href="#">後臺管理</a></li>
+        <li class="nav-list__item"><a href="#">管理員登入</a></li>
+      </ul>
+    </nav>
+    <div class="border-bar"></div>
+  </header>
+  <main class="container-fluid">
+    <section class="container table-container">
+      <button class="deleteAllBtn">清除全部訂單</button>
+      <div class="orderTable">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>訂單編號</th>
+              <th>聯絡人</th>
+              <th>聯絡地址</th>
+              <th>電子郵件</th>
+              <th>訂單品項</th>
+              <th>訂單日期</th>
+              <th>訂單狀態</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>10088377474</td>
+              <td>
+                <p>小杰</p>
+                <p>0912345678</p>
+              </td>
+              <td>高雄市前鎮區六合路183巷66號</td>
+              <td>cccexample@gmail.com</td>
+              <td>
+                <p>Louvre 雙人床架</p>
+              </td>
+              <td>2021/03/08</td>
+              <td class="orderStatus">
+                <button class="orderStatus" value="status">未處理</button>
+              </td>
+              <td>
+                <button class="deleteOneBtn" value="delete">刪除</button>
+              </td>
+            </tr>
+            <tr>
+              <td>10088377474</td>
+              <td>
+                <p>小杰</p>
+                <p>0912345678</p>
+              </td>
+              <td>高雄市前鎮區六合路183巷66號</td>
+              <td>cccexample@gmail.com</td>
+              <td>
+                <p>Louvre 雙人床架</p>
+              </td>
+              <td>2021/03/08</td>
+              <td class="orderStatus">
+                <button class="orderStatus" value="status">未處理</button>
+              </td>
+              <td>
+                <button class="deleteOneBtn" value="delete">刪除</button>
+              </td>
+            </tr>
+            <tr>
+              <td>10088377474</td>
+              <td>
+                <p>小杰</p>
+                <p>0912345678</p>
+              </td>
+              <td>高雄市前鎮區六合路183巷66號</td>
+              <td>cccexample@gmail.com</td>
+              <td>
+                <p>Louvre 雙人床架</p>
+              </td>
+              <td>2021/03/08</td>
+              <td class="orderStatus">
+                <button class="orderStatus" value="status">未處理</button>
+              </td>
+              <td>
+                <button class="deleteOneBtn" value="delete">刪除</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="../js/scss.js"></script>
+</body>
+
 </html>
