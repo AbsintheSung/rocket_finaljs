@@ -364,12 +364,14 @@ main{
 }
 
 .cart-container{
+  padding-bottom: 60px;
   h2{
     text-align: center;
     font-size: 28px;
     padding-top: 48px;
     padding-bottom: 32px;
   }
+
 }
 
 .cart-table{
@@ -382,6 +384,9 @@ main{
   }
   .cart-items{
     border-bottom: 1px solid #BFBFBF;
+  }
+  @include Medium{
+    width: 700px;
   }
 }
 
@@ -408,4 +413,10 @@ main{
 
 .total-price{
   font-size: 28px;
+}
+
+.cart-overflow{
+  @include Medium{
+    overflow-x: scroll;
+  }
 }
