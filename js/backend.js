@@ -52,5 +52,9 @@ const data = {
     ]
 }
 
-
+function createOrderTime(orderTime) {
+    let temp = new Date(orderTime * 1000);
+    let date = `<p>${temp.getFullYear()}/${temp.getMonth() + 1}/${temp.getDate()}</p>`;
+    return date
+}
 
