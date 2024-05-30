@@ -107,3 +107,4 @@ function createOrder(array) {
     orderTbody.innerHTML = str
 }
 
+createOrder(data.orders)
