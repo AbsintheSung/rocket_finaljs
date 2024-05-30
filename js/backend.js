@@ -69,3 +69,9 @@ function createProductItem(array) {
     })
     return temp
 }
+
+// 處理狀態
+function paidStatus(status) {
+    return status ? '已處理' : '未處理';
+}
+
