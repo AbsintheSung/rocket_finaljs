@@ -4,7 +4,7 @@
 }
 .orderTable {
   overflow-x: scroll;
-  scrollbar-width: none;
+  // scrollbar-width: none;
 }
 .admin-table {
   width: calc(1110px - 30px);
@@ -33,6 +33,9 @@
         border: 1px solid black;
         text-align: center;
         vertical-align: middle;
+      }
+      td:nth-child(7) {
+        padding: 0px;
       }
       td:last-child {
         padding: 0px;
