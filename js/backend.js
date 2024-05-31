@@ -116,14 +116,14 @@ function createOrder(array) {
     orderTbody.innerHTML = str
 }
 
-createOrder(data.orders)
 
+//遠端獲取資料
 async function getOrderData() {
     const sendUrl = `${baseUrl}/${account}/orders`
     try {
         const response = await axios.get(sendUrl, axiosConfig)
         if (response.status === 200) {
-            console.log(response.data.orders)
+            createOrder(response.data.orders)
         }
     } catch (error) {
         if (error.response.status === 403) console.log(error.response.data)
