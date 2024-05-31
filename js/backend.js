@@ -54,7 +54,7 @@ const data = {
 import axios from "axios";
 const account = "absinthe"
 const uid = "3MqEVCXgUfWPBU1z05uHAjqjnzi2"
-const url = "https://livejs-api.hexschool.io/api/livejs/v1/admin"
+const baseUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin"
 const axiosConfig = {
     headers: {
         Authorization: `${uid}`
@@ -118,4 +118,17 @@ function createOrder(array) {
 
 createOrder(data.orders)
 
-console.log(axios)
+async function getOrderData() {
+    const sendUrl = `${baseUrl}/${account}/orders`
+    try {
+        const response = await axios.get(sendUrl, axiosConfig)
+        if (response.status === 200) {
+            console.log(response.data.orders)
+        }
+    } catch (error) {
+        if (error.response.status === 403) console.log(error.response.data)
+        else if (error.response.status === 404) console.log(error.response.data)
+        else console.log('取得失敗，請聯絡服務商')
+    }
+}
+getOrderData()
