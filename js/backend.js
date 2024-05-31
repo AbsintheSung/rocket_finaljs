@@ -105,7 +105,7 @@ function createOrder(array) {
                     ${productsStr}
                 </td>
                 <td>${createDate}</td>
-                <td class="orderStatus">
+                <td>
                     <button class="orderStatus" value="status"  data-id=${item.id}>${paidStr}</button>
                 </td>
                 <td>
