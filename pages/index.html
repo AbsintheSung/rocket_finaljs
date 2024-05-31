@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>商品購物</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link
       rel="stylesheet"
       href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css"
@@ -221,8 +222,116 @@
           </ul>
         </div>
       </section>
+      <section class="container-fluid">
+        <div class="container product-container">
+          <select class="product-category">
+            <option value="全部">全部</option>
+            <option value="床架">床架</option>
+            <option value="窗簾">窗簾</option>
+            <option value="收納">收納</option>
+          </select>
+          <ul class="product-list">
+            <li class="product-cards">
+              <span class="product-type">新品</span> 
+              <img class="product-img" src="../assets/images/JlGUkjl.png">
+              <a href="#" alt="產品圖片" class="add-product">加入購物車</a>
+              <h3 class="proudct-name">Antony 雙人床架／雙人加大</h3>
+              <del class="original-price">NT$18,000</del>
+              <p class="sale-price">NT$12,000</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="container-fluid cart-bgcolor">
+        <div class="container cart-container">
+            <h2>我的購物車</h2>
+          <div class="cart-overflow">
+            <table class="cart-table">
+              <tbody>
+                <tr class="table-header">
+                  <th width="40%">品項</th>
+                  <th width="15%">單價</th>
+                  <th width="15%">數量</th>
+                  <th width="15%">金額</th>
+                  <th width="15%"></th>
+                </tr>
+                <tr class="cart-items">
+                  <td>
+                    <div class="items-title">
+                      <img src="../assets/images/BefHmH2.png" alt="產品圖片">
+                      <p>Antony 雙人床架／雙人加大</p>
+                    </div>
+                  </td>
+                  <td>NT$12,000</td>
+                  <td>1</td>
+                  <td>NT12,000</td>
+                  <td class="cancel-button">
+                    <a href="#" class="material-icons"> clear </a>
+                  </td>
+                </tr>
+                <td>
+                  <a href="#" class="cancel-all-button">刪除所有品項</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                  <p>總金額</p>
+                </td>
+                <td>
+                  <p class="total-price">NT12,000</p>
+                </td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section class="container-fluid">
+        <div class="container orderInfo-container">
+          <h3>填寫預訂資料</h3>
+          <form action="" class="orderInfo-form">
+            <div class="orderInfo-formGroup">
+              <label for="customerName" class="orderInfo-label">姓名</label>
+              <div class="orderInfo-inputWrap">
+                    <input type="text" class="orderInfo-input" id="customerName" placeholder="請輸入姓名" name="姓名">
+                    <p class="orderInfo-message" data-message="姓名">必填！</p>
+              </div>
+            </div>
+            <div class="orderInfo-formGroup">
+                <label for="customerPhone" class="orderInfo-label">電話</label>
+                <div class="orderInfo-inputWrap">
+                    <input type="tel" class="orderInfo-input" id="customerPhone" placeholder="請輸入電話" name="電話">
+                    <p class="orderInfo-message" data-message="電話">必填！</p>
+                </div>
+            </div>
+            <div class="orderInfo-formGroup">
+                <label for="customerEmail" class="orderInfo-label">Email</label>
+                <div class="orderInfo-inputWrap">
+                    <input type="email" class="orderInfo-input" id="customerEmail" placeholder="請輸入 Email" name="Email">
+                    <p class="orderInfo-message" data-message="Email">必填！</p>
+                </div>
+            </div>
+            <div class="orderInfo-formGroup">
+                <label for="customerAddress" class="orderInfo-label">寄送地址</label>
+                <div class="orderInfo-inputWrap">
+                    <input type="text" class="orderInfo-input" id="customerAddress" placeholder="請輸入寄送地址" name="寄送地址">
+                    <p class="orderInfo-message" data-message="寄送地址">必填！</p>
+                </div>
+            </div>
+            <div class="orderInfo-formGroup">
+                <label for="tradeWay" class="orderInfo-label">交易方式</label>
+                <div class="orderInfo-inputWrap">
+                    <select id="tradeWay" class="orderInfo-input" name="交易方式">
+                        <option value="ATM" selected>ATM</option>
+                        <option value="信用卡">信用卡</option>
+                        <option value="超商付款">超商付款</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" value="送出預訂資料" class="orderInfo-btn">
+          </form>
+        </div>
+      </section>
     </main>
-      <section class="container-fluid"></section>
     <script type="module" src="../js/scss.js"></script>
     <script type="module" src="../js/index.js"></script>
   </body>
