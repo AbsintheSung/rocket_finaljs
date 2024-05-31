@@ -51,7 +51,7 @@ const data = {
         }
     ]
 }
-
+import axios from "axios";
 const account = "absinthe"
 const uid = "3MqEVCXgUfWPBU1z05uHAjqjnzi2"
 const url = "https://livejs-api.hexschool.io/api/livejs/v1/admin"
@@ -117,3 +117,5 @@ function createOrder(array) {
 }
 
 createOrder(data.orders)
+
+console.log(axios)
