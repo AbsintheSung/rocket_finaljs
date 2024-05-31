@@ -52,6 +52,15 @@ const data = {
     ]
 }
 
+const account = "absinthe"
+const uid = "3MqEVCXgUfWPBU1z05uHAjqjnzi2"
+const url = "https://livejs-api.hexschool.io/api/livejs/v1/admin"
+const axiosConfig = {
+    headers: {
+        Authorization: `${uid}`
+    }
+}
+
 //訂單日期
 function createOrderTime(orderTime) {
     let temp = new Date(orderTime * 1000);
