@@ -76,6 +76,16 @@ async function deleteOneData(id) {
         throw error.response.data.message
     }
 }
+//刪除多筆
+async function deleteAllData() {
+    const sendUrl = `${baseUrl}/${account}/orders/`
+    try {
+        const response = await axios.delete(sendUrl, axiosConfig)
+        return response.data.message
+    } catch (error) {
+        throw error.response.data.message
+    }
+}
 
 //遠端獲取資料
 async function getOrderData() {
@@ -106,7 +116,7 @@ adminTable.addEventListener('click', async function async(e) {
 })
 
 deleteAllBtn.addEventListener('click', async function () {
-    console.log('我是刪除全部')
+    await deleteAllData()
 })
 
 
