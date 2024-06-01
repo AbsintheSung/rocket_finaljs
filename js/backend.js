@@ -1,4 +1,6 @@
 import axios from "axios";
+const adminTable = document.querySelector('.admin-table')
+const deleteAllBtn = document.querySelector('.deleteAllBtn')
 const account = "absinthe"
 const uid = "3MqEVCXgUfWPBU1z05uHAjqjnzi2"
 const baseUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin"
