@@ -1,5 +1,6 @@
 import axios from "axios";
-import Swal from 'sweetalert2'
+import { loading, handleDelete, handleStatus, toast } from './swal'
+// import Swal from 'sweetalert2'
 const adminTable = document.querySelector('.admin-table')
 const deleteAllBtn = document.querySelector('.deleteAllBtn')
 const account = "absinthe"
@@ -81,7 +82,7 @@ async function deleteAllData() {
     const sendUrl = `${baseUrl}/${account}/orders/`
     try {
         const response = await axios.delete(sendUrl, axiosConfig)
-        return response.data.message
+        return response.data.orders
     } catch (error) {
         throw error.response.data.message
     }
@@ -110,14 +111,16 @@ async function checkoutStatus(id, status) {
 async function getOrderData() {
     const sendUrl = `${baseUrl}/${account}/orders`
     try {
+        loading()
         const response = await axios.get(sendUrl, axiosConfig)
         if (response.status === 200) {
             createOrder(response.data.orders)
+            toast('success', "加載完成")
         }
     } catch (error) {
-        if (error.response.status === 403) console.log(error.response.data)
-        else if (error.response.status === 404) console.log(error.response.data)
-        else console.log('取得失敗，請聯絡服務商')
+        if (error.response.status === 403) sweetalert(error.response.data.message, "錯誤通知", "error")
+        else if (error.response.status === 404) sweetalert(error.response.data.message, "錯誤通知", "error")
+        else sweetalert('取得失敗，請聯絡服務商', "錯誤通知", "error")
     }
 }
 getOrderData()
@@ -143,65 +146,65 @@ deleteAllBtn.addEventListener('click', async function () {
 })
 
 
-function sweetalert(text, statusTile, icon) {
-    Swal.fire({
-        title: `${statusTile}`,
-        text: `${text}`,
-        icon: `${icon}`
-    });
-}
+// function sweetalert(text, statusTile, icon) {
+//     Swal.fire({
+//         title: `${statusTile}`,
+//         text: `${text}`,
+//         icon: `${icon}`
+//     });
+// }
 
-async function handleDelete(fn, id) {
-    return Swal.fire({
-        title: "刪除訂單",
-        text: "你確定要刪除此訂單嗎?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "確定",
-        cancelButtonText: "取消",
-        showLoaderOnConfirm: true,
-        preConfirm: () => {
-            return fn(id)
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-    }).then((result) => {
-        if (!result.isConfirmed) {
-            return
-        }
-        sweetalert("刪除成功", "成功通知", "success")
-        return result
-    }).catch((result) => {
-        sweetalert(result, "失敗通知", "error")
-    });
-}
+// async function handleDelete(fn, id) {
+//     return Swal.fire({
+//         title: "刪除訂單",
+//         text: "你確定要刪除此訂單嗎?",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: "#3085d6",
+//         cancelButtonColor: "#d33",
+//         confirmButtonText: "確定",
+//         cancelButtonText: "取消",
+//         showLoaderOnConfirm: true,
+//         preConfirm: () => {
+//             return fn(id)
+//         },
+//         allowOutsideClick: () => !Swal.isLoading()
+//     }).then((result) => {
+//         if (!result.isConfirmed) {
+//             return
+//         }
+//         sweetalert("刪除成功", "成功通知", "success")
+//         return result
+//     }).catch((result) => {
+//         sweetalert(result, "失敗通知", "error")
+//     });
+// }
 
-async function handleStatus(fn, id, status) {
-    return Swal.fire({
-        title: "通知",
-        text: "你確定要修改此訂單嗎?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "確定",
-        cancelButtonText: "取消",
-        showLoaderOnConfirm: true,
-        preConfirm: () => {
-            return fn(id, !JSON.parse(status))
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-    }).then((result) => {
-        if (!result.isConfirmed) {
-            return
-        }
-        sweetalert("修改成功", "修改通知", "info")
-        return result
-    }).catch((result) => {
-        sweetalert(result, "失敗通知", "warning")
-    });
-}
+// async function handleStatus(fn, id, status) {
+//     return Swal.fire({
+//         title: "通知",
+//         text: "你確定要修改此訂單嗎?",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: "#3085d6",
+//         cancelButtonColor: "#d33",
+//         confirmButtonText: "確定",
+//         cancelButtonText: "取消",
+//         showLoaderOnConfirm: true,
+//         preConfirm: () => {
+//             return fn(id, !JSON.parse(status))
+//         },
+//         allowOutsideClick: () => !Swal.isLoading()
+//     }).then((result) => {
+//         if (!result.isConfirmed) {
+//             return
+//         }
+//         sweetalert("修改成功", "修改通知", "info")
+//         return result
+//     }).catch((result) => {
+//         sweetalert(result, "失敗通知", "warning")
+//     });
+// }
 
 
 
