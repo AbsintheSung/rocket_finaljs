@@ -99,7 +99,9 @@ adminTable.addEventListener('click', async function async(e) {
         console.log('我是處理狀態');
     }
     if (e.target.classList.contains('deleteOneBtn')) {
-        console.log('我是刪除單筆');
+        const id = e.target.getAttribute('data-id')
+        const response = await handleDelete(deleteOneData, id)
+        createOrder(response.value)
     }
 })
 
@@ -107,4 +109,38 @@ deleteAllBtn.addEventListener('click', async function () {
     console.log('我是刪除全部')
 })
 
+
+function sweetalert(text, statusTile, icon) {
+    Swal.fire({
+        title: `${statusTile}`,
+        text: `${text}`,
+        icon: `${icon}`
+    });
+}
+
+async function handleDelete(fn, id) {
+    return Swal.fire({
+        title: "刪除訂單",
+        text: "你確定要刪除此訂單嗎?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "確定",
+        cancelButtonText: "取消",
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+            return fn(id)
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+        if (!result.isConfirmed) {
+            return
+        }
+        sweetalert("刪除成功", "成功通知", "success")
+        return result
+    }).catch((result) => {
+        sweetalert(result, "失敗通知", "error")
+    });
+}
 
