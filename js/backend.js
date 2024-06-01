@@ -83,7 +83,7 @@ async function deleteAllData() {
         const response = await axios.delete(sendUrl, axiosConfig)
         return response.data.message
     } catch (error) {
-        return response.data.message
+        throw error.response.data.message
     }
 }
 
@@ -96,12 +96,12 @@ async function checkoutStatus(id, status) {
             "paid": status
         }
     }
-    console.log(data)
     try {
         const response = await axios.put(sendUrl, data, axiosConfig)
         return response.data.orders
     } catch (error) {
-        return response.data.message
+        console.log(error)
+        throw error.response.data.message
     }
 }
 
@@ -178,7 +178,6 @@ async function handleDelete(fn, id) {
 }
 
 async function handleStatus(fn, id, status) {
-    console.log(status)
     return Swal.fire({
         title: "通知",
         text: "你確定要修改此訂單嗎?",
@@ -197,10 +196,10 @@ async function handleStatus(fn, id, status) {
         if (!result.isConfirmed) {
             return
         }
-        sweetalert("修改成功", "成功通知", "success")
+        sweetalert("修改成功", "修改通知", "info")
         return result
     }).catch((result) => {
-        sweetalert(result, "失敗通知", "warn")
+        sweetalert(result, "失敗通知", "warning")
     });
 }
 
