@@ -147,6 +147,7 @@ adminTable.addEventListener('click', async function async(e) {
         const id = e.target.getAttribute('data-id')
         const response = await handleDelete(deleteOneData, id)
         response === undefined ? null : createOrder(response.value)
+        response === undefined ? null : drawC3(response.value)
     }
 })
 
@@ -154,6 +155,7 @@ adminTable.addEventListener('click', async function async(e) {
 deleteAllBtn.addEventListener('click', async function () {
     const response = await handleDelete(deleteAllData)
     response === undefined ? null : createOrder(response.value)
+    response === undefined ? null : drawC3(response.value)
 })
 
 //篩選監聽事件
