@@ -170,6 +170,19 @@ c3.generate({
     }
 });
 //c3相關
+function c3Generate(array) {
+    c3.generate({
+        bindto: '#chart',
+        data: {
+            columns: array,
+            type: 'pie',
+        },
+        color: {
+            pattern: ["#DACBFF", "#9D7FEA", "#5434A7", "#301E5F"]
+        }
+    });
+}
+
 function changeOneDimensional(array) { //將 orderData.products 全部取出後，轉成一維陣列
     if (array.length === 0) return []
     let temp = []
