@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from 'sweetalert2'
 const adminTable = document.querySelector('.admin-table')
 const deleteAllBtn = document.querySelector('.deleteAllBtn')
 const account = "absinthe"
