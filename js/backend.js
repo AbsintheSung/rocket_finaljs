@@ -11,6 +11,7 @@ const axiosConfig = {
         Authorization: `${uid}`
     }
 }
+const orderData = []
 
 //訂單日期
 function createOrderTime(orderTime) {
@@ -67,6 +68,12 @@ function createOrder(array) {
     orderTbody.innerHTML = str
 }
 
+//將遠端的的資料，存在本地
+function creatrLocalData(array) {
+    orderData.splice(0, orderData.length); //重製 0
+    array.forEach(item => orderData.push(item))
+}
+
 //刪除單筆
 async function deleteOneData(id) {
     const sendUrl = `${baseUrl}/${account}/orders/${id}`
@@ -114,7 +121,8 @@ async function getOrderData() {
         loading()
         const response = await axios.get(sendUrl, axiosConfig)
         if (response.status === 200) {
-            createOrder(response.data.orders)
+            createOrder(response.data.orders) //轉成dom並掛載到html上
+            creatrLocalData(response.data.orders) //將取得資料存在  orderData 內
             toast('success', "加載完成")
         }
     } catch (error) {
