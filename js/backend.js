@@ -81,6 +81,7 @@ async function deleteOneData(id) {
     const sendUrl = `${baseUrl}/${account}/orders/${id}`
     try {
         const response = await axios.delete(sendUrl, axiosConfig)
+        creatrLocalData(response.data.orders)
         return response.data.orders
     } catch (error) {
         throw error.response.data.message
@@ -91,6 +92,7 @@ async function deleteAllData() {
     const sendUrl = `${baseUrl}/${account}/orders/`
     try {
         const response = await axios.delete(sendUrl, axiosConfig)
+        creatrLocalData(response.data.orders)
         return response.data.orders
     } catch (error) {
         throw error.response.data.message
@@ -108,6 +110,7 @@ async function checkoutStatus(id, status) {
     }
     try {
         const response = await axios.put(sendUrl, data, axiosConfig)
+        creatrLocalData(response.data.orders)
         return response.data.orders
     } catch (error) {
         console.log(error)
