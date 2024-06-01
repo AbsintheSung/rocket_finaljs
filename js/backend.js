@@ -66,6 +66,16 @@ function createOrder(array) {
     orderTbody.innerHTML = str
 }
 
+//刪除單筆
+async function deleteOneData(id) {
+    const sendUrl = `${baseUrl}/${account}/orders/${id}`
+    try {
+        const response = await axios.delete(sendUrl, axiosConfig)
+        return response.data.orders
+    } catch (error) {
+        throw error.response.data.message
+    }
+}
 
 //遠端獲取資料
 async function getOrderData() {
