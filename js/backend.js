@@ -155,20 +155,6 @@ deleteAllBtn.addEventListener('click', async function () {
 
 
 
-c3.generate({
-    bindto: '#chart',
-    data: {
-        columns: [
-            ['床架', 100],
-            ['收納', 200],
-            ['窗簾', 150],
-        ],
-        type: 'pie',
-    },
-    color: {
-        pattern: ["#DACBFF", "#9D7FEA", "#5434A7", "#301E5F"]
-    }
-});
 //c3相關
 function c3Generate(array) {
     c3.generate({
