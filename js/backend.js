@@ -101,7 +101,7 @@ adminTable.addEventListener('click', async function async(e) {
     if (e.target.classList.contains('deleteOneBtn')) {
         const id = e.target.getAttribute('data-id')
         const response = await handleDelete(deleteOneData, id)
-        createOrder(response.value)
+        response === undefined ? null : createOrder(response.value)
     }
 })
 
