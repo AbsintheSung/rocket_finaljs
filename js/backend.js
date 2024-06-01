@@ -56,7 +56,7 @@ function createOrder(array) {
                 </td>
                 <td>${createDate}</td>
                 <td>
-                    <button class="orderStatus" value="status"  data-id=${item.id}>${paidStr}</button>
+                    <button class="orderStatus" value="status"  data-status=${item.paid} data-id=${item.id}>${paidStr}</button>
                 </td>
                 <td>
                     <button class="deleteOneBtn" value="delete"  data-id=${item.id}>刪除</button>
@@ -83,9 +83,28 @@ async function deleteAllData() {
         const response = await axios.delete(sendUrl, axiosConfig)
         return response.data.message
     } catch (error) {
-        throw error.response.data.message
+        return response.data.message
     }
 }
+
+//修改狀態
+async function checkoutStatus(id, status) {
+    const sendUrl = `${baseUrl}/${account}/orders`
+    const data = {
+        "data": {
+            "id": `${id}`,
+            "paid": status
+        }
+    }
+    console.log(data)
+    try {
+        const response = await axios.put(sendUrl, data, axiosConfig)
+        return response.data.orders
+    } catch (error) {
+        return response.data.message
+    }
+}
+
 
 //遠端獲取資料
 async function getOrderData() {
@@ -106,7 +125,10 @@ getOrderData()
 
 adminTable.addEventListener('click', async function async(e) {
     if (e.target.classList.contains('orderStatus')) {
-        console.log('我是處理狀態');
+        const id = e.target.getAttribute('data-id')
+        const status = e.target.getAttribute('data-status')
+        const response = await handleStatus(checkoutStatus, id, status)
+        response === undefined ? null : createOrder(response.value)
     }
     if (e.target.classList.contains('deleteOneBtn')) {
         const id = e.target.getAttribute('data-id')
@@ -154,4 +176,33 @@ async function handleDelete(fn, id) {
         sweetalert(result, "失敗通知", "error")
     });
 }
+
+async function handleStatus(fn, id, status) {
+    console.log(status)
+    return Swal.fire({
+        title: "通知",
+        text: "你確定要修改此訂單嗎?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "確定",
+        cancelButtonText: "取消",
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+            return fn(id, !JSON.parse(status))
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+        if (!result.isConfirmed) {
+            return
+        }
+        sweetalert("修改成功", "成功通知", "success")
+        return result
+    }).catch((result) => {
+        sweetalert(result, "失敗通知", "warn")
+    });
+}
+
+
 
