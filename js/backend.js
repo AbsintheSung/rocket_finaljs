@@ -200,4 +200,4 @@ function category(array) {
 }
 
 await getOrderData()
-c3_category(orderData)
+category(orderData)
