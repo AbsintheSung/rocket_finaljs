@@ -81,3 +81,19 @@ async function getOrderData() {
     }
 }
 getOrderData()
+
+
+adminTable.addEventListener('click', async function async(e) {
+    if (e.target.classList.contains('orderStatus')) {
+        console.log('我是處理狀態');
+    }
+    if (e.target.classList.contains('deleteOneBtn')) {
+        console.log('我是刪除單筆');
+    }
+})
+
+deleteAllBtn.addEventListener('click', async function () {
+    console.log('我是刪除全部')
+})
+
+
