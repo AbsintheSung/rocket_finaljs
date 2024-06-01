@@ -91,3 +91,21 @@
     font-size: 16px;
   }
 }
+
+//無資料顯示設定
+.no_found-container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  > .no_found-section {
+    h2 {
+      margin: 15px 0px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: 900;
+    }
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
