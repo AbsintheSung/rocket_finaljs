@@ -1,10 +1,12 @@
 import axios from "axios";
 import { loading, handleDelete, handleStatus, toast } from './swal'
-import { c3Generate, category, allOrderItems } from "./c3_chart"
+import { c3Generate, category, allOrderItems, drawC3 } from "./c3_chart"
 // import Swal from 'sweetalert2'
 const adminTable = document.querySelector('.admin-table')
 const deleteAllBtn = document.querySelector('.deleteAllBtn')
 const sectionRevenue = document.querySelector('.section-revenue')
+const no_foundMain = document.querySelector('.no_found-section')
+const tableContainer = document.querySelector('.table-container')
 const account = "absinthe"
 const uid = "3MqEVCXgUfWPBU1z05uHAjqjnzi2"
 const baseUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin"
@@ -76,11 +78,20 @@ function creatrLocalData(array) {
     array.forEach(item => orderData.push(item))
 }
 
+//訂單有無的畫面顯示與隱藏
+function showView() {
+    no_foundMain.style.display = orderData.length === 0 ? 'block' : 'none';
+    sectionRevenue.style.display = orderData.length === 0 ? 'none' : 'block';
+    tableContainer.style.display = orderData.length === 0 ? 'none' : 'block';
+
+}
+
 //刪除單筆
 async function deleteOneData(id) {
     const sendUrl = `${baseUrl}/${account}/orders/${id}`
     try {
         const response = await axios.delete(sendUrl, axiosConfig)
+        creatrLocalData(response.data.orders)
         return response.data.orders
     } catch (error) {
         throw error.response.data.message
@@ -91,6 +102,7 @@ async function deleteAllData() {
     const sendUrl = `${baseUrl}/${account}/orders/`
     try {
         const response = await axios.delete(sendUrl, axiosConfig)
+        creatrLocalData(response.data.orders)
         return response.data.orders
     } catch (error) {
         throw error.response.data.message
@@ -108,6 +120,7 @@ async function checkoutStatus(id, status) {
     }
     try {
         const response = await axios.put(sendUrl, data, axiosConfig)
+        creatrLocalData(response.data.orders)
         return response.data.orders
     } catch (error) {
         console.log(error)
@@ -120,6 +133,7 @@ async function checkoutStatus(id, status) {
 async function getOrderData() {
     const sendUrl = `${baseUrl}/${account}/orders`
     try {
+        showView()
         loading()
         const response = await axios.get(sendUrl, axiosConfig)
         if (response.status === 200) {
@@ -147,6 +161,8 @@ adminTable.addEventListener('click', async function async(e) {
         const id = e.target.getAttribute('data-id')
         const response = await handleDelete(deleteOneData, id)
         response === undefined ? null : createOrder(response.value)
+        response === undefined ? null : drawC3(response.value)
+        showView()
     }
 })
 
@@ -154,6 +170,8 @@ adminTable.addEventListener('click', async function async(e) {
 deleteAllBtn.addEventListener('click', async function () {
     const response = await handleDelete(deleteAllData)
     response === undefined ? null : createOrder(response.value)
+    response === undefined ? null : drawC3(response.value)
+    showView()
 })
 
 //篩選監聽事件
@@ -172,7 +190,8 @@ sectionRevenue.addEventListener('change', function (e) {
 //初始化
 async function init() {
     await getOrderData()
-    const temp = allOrderItems(orderData)
-    c3Generate(temp)
+    document.querySelector("body").style.paddingRight = 0 + "px" //alert套件 會造成 padding多了15px，用js重置
+    drawC3(orderData)
+    showView()
 }
 init()
