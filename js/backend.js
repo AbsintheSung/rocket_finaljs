@@ -4,8 +4,6 @@ import { loading, handleDelete, handleStatus, toast } from './swal'
 const adminTable = document.querySelector('.admin-table')
 const deleteAllBtn = document.querySelector('.deleteAllBtn')
 const sectionRevenue = document.querySelector('.section-revenue')
-const titleOne = document.querySelector('.title-one')
-const titleTwo = document.querySelector('.title-two')
 const account = "absinthe"
 const uid = "3MqEVCXgUfWPBU1z05uHAjqjnzi2"
 const baseUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin"
@@ -198,7 +196,7 @@ function category(array) {
     for (let key in result) {
         c3Array.push([key, result[key]])
     }
-    console.log(c3Array)
+    return c3Array
 }
 function allOrderItems(array) {
     if (array.length === 0) return []
@@ -223,10 +221,20 @@ function allOrderItems(array) {
     // 將其餘項目的總和加入到前三個項目中，並將其鍵設為 "其他"
     c3Array.push(["其他", otherItemsSum]);
 
-    console.log(c3Array);
+    return c3Array
 
 }
+sectionRevenue.addEventListener('change', function (e) {
+    if (e.target.value === '類別營收比重') {
+        const temp = category(orderData)
+        c3Generate(temp)
+    }
+    if (e.target.value === '全品項營收比重') {
+        const temp = allOrderItems(orderData)
+        c3Generate(temp)
+    }
+})
 
 await getOrderData()
-category(orderData)
-allOrderItems(orderData)
+const temp = allOrderItems(orderData)
+c3Generate(temp)
