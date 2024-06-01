@@ -146,65 +146,19 @@ deleteAllBtn.addEventListener('click', async function () {
 })
 
 
-// function sweetalert(text, statusTile, icon) {
-//     Swal.fire({
-//         title: `${statusTile}`,
-//         text: `${text}`,
-//         icon: `${icon}`
-//     });
-// }
 
-// async function handleDelete(fn, id) {
-//     return Swal.fire({
-//         title: "刪除訂單",
-//         text: "你確定要刪除此訂單嗎?",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#3085d6",
-//         cancelButtonColor: "#d33",
-//         confirmButtonText: "確定",
-//         cancelButtonText: "取消",
-//         showLoaderOnConfirm: true,
-//         preConfirm: () => {
-//             return fn(id)
-//         },
-//         allowOutsideClick: () => !Swal.isLoading()
-//     }).then((result) => {
-//         if (!result.isConfirmed) {
-//             return
-//         }
-//         sweetalert("刪除成功", "成功通知", "success")
-//         return result
-//     }).catch((result) => {
-//         sweetalert(result, "失敗通知", "error")
-//     });
-// }
-
-// async function handleStatus(fn, id, status) {
-//     return Swal.fire({
-//         title: "通知",
-//         text: "你確定要修改此訂單嗎?",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#3085d6",
-//         cancelButtonColor: "#d33",
-//         confirmButtonText: "確定",
-//         cancelButtonText: "取消",
-//         showLoaderOnConfirm: true,
-//         preConfirm: () => {
-//             return fn(id, !JSON.parse(status))
-//         },
-//         allowOutsideClick: () => !Swal.isLoading()
-//     }).then((result) => {
-//         if (!result.isConfirmed) {
-//             return
-//         }
-//         sweetalert("修改成功", "修改通知", "info")
-//         return result
-//     }).catch((result) => {
-//         sweetalert(result, "失敗通知", "warning")
-//     });
-// }
-
-
+c3.generate({
+    bindto: '#chart',
+    data: {
+        columns: [
+            ['床架', 100],
+            ['收納', 200],
+            ['窗簾', 150],
+        ],
+        type: 'pie',
+    },
+    color: {
+        pattern: ["#DACBFF", "#9D7FEA", "#5434A7", "#301E5F"]
+    }
+});
 
