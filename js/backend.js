@@ -3,6 +3,9 @@ import { loading, handleDelete, handleStatus, toast } from './swal'
 // import Swal from 'sweetalert2'
 const adminTable = document.querySelector('.admin-table')
 const deleteAllBtn = document.querySelector('.deleteAllBtn')
+const sectionRevenue = document.querySelector('.section-revenue')
+const titleOne = document.querySelector('.title-one')
+const titleTwo = document.querySelector('.title-two')
 const account = "absinthe"
 const uid = "3MqEVCXgUfWPBU1z05uHAjqjnzi2"
 const baseUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin"
