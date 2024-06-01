@@ -131,7 +131,7 @@ async function getOrderData() {
         else sweetalert('取得失敗，請聯絡服務商', "錯誤通知", "error")
     }
 }
-getOrderData()
+
 
 
 adminTable.addEventListener('click', async function async(e) {
@@ -169,4 +169,18 @@ c3.generate({
         pattern: ["#DACBFF", "#9D7FEA", "#5434A7", "#301E5F"]
     }
 });
+//c3相關
+function c3_changeOneDimensional(array) { //將 orderData.products 全部取出後，轉成一維陣列
+    if (array.length === 0) return []
+    let temp = []
+    array.forEach(function (item) {
+        temp.push(item.products)
+    })
+    let result = temp.reduce(function (previousValue, currentValue) {
+        return previousValue.concat(currentValue);
+    }, []);
+    return result
+}
+
+await getOrderData()
 
