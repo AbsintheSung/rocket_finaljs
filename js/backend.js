@@ -3,6 +3,7 @@ import { loading, handleDelete, handleStatus, toast } from './swal'
 // import Swal from 'sweetalert2'
 const adminTable = document.querySelector('.admin-table')
 const deleteAllBtn = document.querySelector('.deleteAllBtn')
+const sectionRevenue = document.querySelector('.section-revenue')
 const account = "absinthe"
 const uid = "3MqEVCXgUfWPBU1z05uHAjqjnzi2"
 const baseUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin"
@@ -11,6 +12,7 @@ const axiosConfig = {
         Authorization: `${uid}`
     }
 }
+const orderData = []
 
 //訂單日期
 function createOrderTime(orderTime) {
@@ -67,6 +69,12 @@ function createOrder(array) {
     orderTbody.innerHTML = str
 }
 
+//將遠端的的資料，存在本地
+function creatrLocalData(array) {
+    orderData.splice(0, orderData.length); //重製 0
+    array.forEach(item => orderData.push(item))
+}
+
 //刪除單筆
 async function deleteOneData(id) {
     const sendUrl = `${baseUrl}/${account}/orders/${id}`
@@ -114,7 +122,8 @@ async function getOrderData() {
         loading()
         const response = await axios.get(sendUrl, axiosConfig)
         if (response.status === 200) {
-            createOrder(response.data.orders)
+            createOrder(response.data.orders) //轉成dom並掛載到html上
+            creatrLocalData(response.data.orders) //將取得資料存在  orderData 內
             toast('success', "加載完成")
         }
     } catch (error) {
@@ -123,7 +132,7 @@ async function getOrderData() {
         else sweetalert('取得失敗，請聯絡服務商', "錯誤通知", "error")
     }
 }
-getOrderData()
+
 
 
 adminTable.addEventListener('click', async function async(e) {
@@ -146,65 +155,86 @@ deleteAllBtn.addEventListener('click', async function () {
 })
 
 
-// function sweetalert(text, statusTile, icon) {
-//     Swal.fire({
-//         title: `${statusTile}`,
-//         text: `${text}`,
-//         icon: `${icon}`
-//     });
-// }
 
-// async function handleDelete(fn, id) {
-//     return Swal.fire({
-//         title: "刪除訂單",
-//         text: "你確定要刪除此訂單嗎?",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#3085d6",
-//         cancelButtonColor: "#d33",
-//         confirmButtonText: "確定",
-//         cancelButtonText: "取消",
-//         showLoaderOnConfirm: true,
-//         preConfirm: () => {
-//             return fn(id)
-//         },
-//         allowOutsideClick: () => !Swal.isLoading()
-//     }).then((result) => {
-//         if (!result.isConfirmed) {
-//             return
-//         }
-//         sweetalert("刪除成功", "成功通知", "success")
-//         return result
-//     }).catch((result) => {
-//         sweetalert(result, "失敗通知", "error")
-//     });
-// }
+//c3相關
+function c3Generate(array) {
+    c3.generate({
+        bindto: '#chart',
+        data: {
+            columns: array,
+            type: 'pie',
+        },
+        color: {
+            pattern: ["#DACBFF", "#9D7FEA", "#5434A7", "#301E5F"]
+        }
+    });
+}
 
-// async function handleStatus(fn, id, status) {
-//     return Swal.fire({
-//         title: "通知",
-//         text: "你確定要修改此訂單嗎?",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#3085d6",
-//         cancelButtonColor: "#d33",
-//         confirmButtonText: "確定",
-//         cancelButtonText: "取消",
-//         showLoaderOnConfirm: true,
-//         preConfirm: () => {
-//             return fn(id, !JSON.parse(status))
-//         },
-//         allowOutsideClick: () => !Swal.isLoading()
-//     }).then((result) => {
-//         if (!result.isConfirmed) {
-//             return
-//         }
-//         sweetalert("修改成功", "修改通知", "info")
-//         return result
-//     }).catch((result) => {
-//         sweetalert(result, "失敗通知", "warning")
-//     });
-// }
+function changeOneDimensional(array) { //將 orderData.products 全部取出後，轉成一維陣列
+    if (array.length === 0) return []
+    let temp = []
+    array.forEach(function (item) {
+        temp.push(item.products)
+    })
+    let result = temp.reduce(function (previousValue, currentValue) {
+        return previousValue.concat(currentValue);
+    }, []);
+    return result
+}
+function category(array) {
+    if (array.length === 0) return []
+    const temp = changeOneDimensional(array)
+    const c3Array = []
+    let result = temp.reduce(function (allNames, name) {
+        if (name.category in allNames) {
+            allNames[name.category] = allNames[name.category] + (name.price * name.quantity);
+        } else {
+            allNames[name.category] = name.price * name.quantity;
+        }
+        return allNames;
+    }, {});
+    for (let key in result) {
+        c3Array.push([key, result[key]])
+    }
+    return c3Array
+}
+function allOrderItems(array) {
+    if (array.length === 0) return []
+    const temp = changeOneDimensional(array)
+    let result = temp.reduce(function (allNames, name) {
+        let temp = name.title
+        if (temp in allNames) {
+            allNames[name.title] = allNames[name.title] + (name.price * name.quantity);
+        } else {
+            allNames[name.title] = name.price * name.quantity;
+        }
+        return allNames;
+    }, {});
+    let sortedItems = Object.entries(result).sort((a, b) => b[1] - a[1]);
 
+    // 取出前三個項目
+    let c3Array = sortedItems.slice(0, 3);
 
+    // 計算其餘項目的總和
+    let otherItemsSum = sortedItems.slice(3).reduce((sum, item) => sum + item[1], 0);
 
+    // 將其餘項目的總和加入到前三個項目中，並將其鍵設為 "其他"
+    c3Array.push(["其他", otherItemsSum]);
+
+    return c3Array
+
+}
+sectionRevenue.addEventListener('change', function (e) {
+    if (e.target.value === '類別營收比重') {
+        const temp = category(orderData)
+        c3Generate(temp)
+    }
+    if (e.target.value === '全品項營收比重') {
+        const temp = allOrderItems(orderData)
+        c3Generate(temp)
+    }
+})
+
+await getOrderData()
+const temp = allOrderItems(orderData)
+c3Generate(temp)
