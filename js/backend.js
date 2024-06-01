@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from 'sweetalert2'
 const adminTable = document.querySelector('.admin-table')
 const deleteAllBtn = document.querySelector('.deleteAllBtn')
 const account = "absinthe"
@@ -65,6 +66,26 @@ function createOrder(array) {
     orderTbody.innerHTML = str
 }
 
+//刪除單筆
+async function deleteOneData(id) {
+    const sendUrl = `${baseUrl}/${account}/orders/${id}`
+    try {
+        const response = await axios.delete(sendUrl, axiosConfig)
+        return response.data.orders
+    } catch (error) {
+        throw error.response.data.message
+    }
+}
+//刪除多筆
+async function deleteAllData() {
+    const sendUrl = `${baseUrl}/${account}/orders/`
+    try {
+        const response = await axios.delete(sendUrl, axiosConfig)
+        return response.data.message
+    } catch (error) {
+        throw error.response.data.message
+    }
+}
 
 //遠端獲取資料
 async function getOrderData() {
@@ -88,12 +109,49 @@ adminTable.addEventListener('click', async function async(e) {
         console.log('我是處理狀態');
     }
     if (e.target.classList.contains('deleteOneBtn')) {
-        console.log('我是刪除單筆');
+        const id = e.target.getAttribute('data-id')
+        const response = await handleDelete(deleteOneData, id)
+        response === undefined ? null : createOrder(response.value)
     }
 })
 
 deleteAllBtn.addEventListener('click', async function () {
-    console.log('我是刪除全部')
+    const response = await handleDelete(deleteAllData)
+    response === undefined ? null : createOrder(response.value)
 })
 
+
+function sweetalert(text, statusTile, icon) {
+    Swal.fire({
+        title: `${statusTile}`,
+        text: `${text}`,
+        icon: `${icon}`
+    });
+}
+
+async function handleDelete(fn, id) {
+    return Swal.fire({
+        title: "刪除訂單",
+        text: "你確定要刪除此訂單嗎?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "確定",
+        cancelButtonText: "取消",
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+            return fn(id)
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+        if (!result.isConfirmed) {
+            return
+        }
+        sweetalert("刪除成功", "成功通知", "success")
+        return result
+    }).catch((result) => {
+        sweetalert(result, "失敗通知", "error")
+    });
+}
 
