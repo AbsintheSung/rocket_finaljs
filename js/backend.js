@@ -116,7 +116,8 @@ adminTable.addEventListener('click', async function async(e) {
 })
 
 deleteAllBtn.addEventListener('click', async function () {
-    await deleteAllData()
+    const response = await handleDelete(deleteAllData)
+    response === undefined ? null : createOrder(response.value)
 })
 
 
