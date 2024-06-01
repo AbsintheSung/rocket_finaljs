@@ -1,6 +1,6 @@
 import axios from "axios";
 import { loading, handleDelete, handleStatus, toast } from './swal'
-import { c3Generate, category, allOrderItems } from "./c3_chart"
+import { c3Generate, category, allOrderItems, drawC3 } from "./c3_chart"
 // import Swal from 'sweetalert2'
 const adminTable = document.querySelector('.admin-table')
 const deleteAllBtn = document.querySelector('.deleteAllBtn')
@@ -172,7 +172,6 @@ sectionRevenue.addEventListener('change', function (e) {
 //初始化
 async function init() {
     await getOrderData()
-    const temp = allOrderItems(orderData)
-    c3Generate(temp)
+    drawC3(orderData)
 }
 init()

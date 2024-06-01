@@ -66,3 +66,8 @@ export function allOrderItems(array) {
     return c3Array
 
 }
+
+export function drawC3(orderData) {
+    const temp = allOrderItems(orderData)
+    c3Generate(temp)
+}
