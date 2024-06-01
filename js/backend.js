@@ -170,7 +170,7 @@ c3.generate({
     }
 });
 //c3相關
-function c3_changeOneDimensional(array) { //將 orderData.products 全部取出後，轉成一維陣列
+function changeOneDimensional(array) { //將 orderData.products 全部取出後，轉成一維陣列
     if (array.length === 0) return []
     let temp = []
     array.forEach(function (item) {
@@ -181,6 +181,23 @@ function c3_changeOneDimensional(array) { //將 orderData.products 全部取出�
     }, []);
     return result
 }
+function category(array) {
+    if (array.length === 0) return []
+    const temp = changeOneDimensional(array)
+    const c3Array = []
+    let result = temp.reduce(function (allNames, name) {
+        if (name.category in allNames) {
+            allNames[name.category] = allNames[name.category] + (name.price * name.quantity);
+        } else {
+            allNames[name.category] = name.price * name.quantity;
+        }
+        return allNames;
+    }, {});
+    for (let key in result) {
+        c3Array.push([key, result[key]])
+    }
+    console.log(c3Array)
+}
 
 await getOrderData()
-
+c3_category(orderData)
