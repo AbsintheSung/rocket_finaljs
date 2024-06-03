@@ -48,3 +48,23 @@ const renderHtml = ( element , data ) =>{
     element.innerHTML = data;
 }
 
+//取得購物車列表
+const obj =  {
+    "data": {
+      "productId": "wgN3j5LRIItJpMXnpM3t",
+      "quantity": 5
+    }
+  }
+
+const getCartList = () => {
+
+axios.post(cartUrl, obj)
+  .then(function (response) {
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+getCartList();
