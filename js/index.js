@@ -1,6 +1,6 @@
 //API們
 const apiPath = 'yixuan';
-const productListUrl = `https://livejs-api.hexschool.io/api/livejs/v1/customer/${apiPath}/carts`;
+const productListUrl = `https://livejs-api.hexschool.io/api/livejs/v1/customer/${apiPath}/products`;
 const cartUrl = `https://livejs-api.hexschool.io/api/livejs/v1/customer/${apiPath}/carts`;
 
 //網頁元素們
@@ -21,10 +21,10 @@ const salePrice = document.querySelector('.sale-price');
 const getProductList = () => {
     axios.get(productListUrl)
         .then(response => {
-            let products = '';
-            response.data.carts.forEach(cart => {
-                let obj = cart.product;
-                products +=
+            console.log(response.data.products)
+            let allProduct = '';
+            response.data.products.forEach(obj => {
+                allProduct +=
                     `<li class="product-cards" data-category="${obj.category}">
                     <span class="product-type">新品</span> 
                     <img class="product-img" src="${obj.images}">
@@ -34,7 +34,7 @@ const getProductList = () => {
                     <p class="sale-price">NT$${obj.price}</p>
                     </li>`;
             });
-            renderHtml(productList,products);
+            renderHtml(productList, allProduct);
         })
         .catch(error => {
             console.log(error.response);
@@ -48,13 +48,26 @@ const renderHtml = ( element , data ) =>{
     element.innerHTML = data;
 }
 
-//取得購物車列表
 const obj =  {
     "data": {
       "productId": "wgN3j5LRIItJpMXnpM3t",
       "quantity": 5
     }
   }
+
+//加入購物車
+const addCartItem = () =>{
+    axios.post(cartUrl, obj)
+  .then(function (response) {
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+}
+
+//取得購物車列表
 
 const getCartList = () => {
 
