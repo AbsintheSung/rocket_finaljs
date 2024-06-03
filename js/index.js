@@ -1,7 +1,7 @@
 //API們
 const apiPath = 'yixuan';
 const productListUrl = `https://livejs-api.hexschool.io/api/livejs/v1/customer/${apiPath}/carts`;
-
+const cartUrl = `https://livejs-api.hexschool.io/api/livejs/v1/customer/${apiPath}/carts`;
 
 //網頁元素們
 const productList = document.querySelector('.product-list'); 
@@ -34,8 +34,7 @@ const getProductList = () => {
                     <p class="sale-price">NT$${obj.price}</p>
                     </li>`;
             });
-            productList.innerHTML = products
-            console.log(products); // 確認 products 內容是否正確
+            renderHtml(productList,products);
         })
         .catch(error => {
             console.log(error.response);
@@ -43,3 +42,9 @@ const getProductList = () => {
 }
 
 getProductList();
+
+//渲染物件到頁面上
+const renderHtml = ( element , data ) =>{
+    element.innerHTML = data;
+}
+
