@@ -33,7 +33,8 @@ const getProductList = () => {
         });
 }
 
-const renderProducts = (products) =>{
+//渲染產品列表
+const renderProducts = (products) => {
     let allProduct = '';
     products.forEach(obj => {
         allProduct +=
@@ -46,13 +47,11 @@ const renderProducts = (products) =>{
             <p class="sale-price">NT$${obj.price}</p>
             </li>`;
     });
-    renderHtml(productList,allProduct);
+    renderHtml(productList, allProduct);
 }
 
-
-
-//渲染物件到頁面上
-const renderHtml = ( element , data ) =>{
+//渲染 HTML 到指定元素
+const renderHtml = (element, data) => {
     element.innerHTML = data;
 }
 
@@ -68,7 +67,7 @@ const checkProduct = (event) => {
 getProductList();
 
 //監聽篩選選單
-productCategory.addEventListener('change',checkProduct);
+productCategory.addEventListener('change', checkProduct);
 
 const obj =  {
     "data": {
