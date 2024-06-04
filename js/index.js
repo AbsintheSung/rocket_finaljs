@@ -129,6 +129,16 @@ productList.addEventListener("click", (event) => {
   }
 });
 
+//刪除購物車所有品項
+cancelAllButton.addEventListener('click',() => {
+  axios.delete(cartUrl).then((response) =>{
+    cartList.innerHTML = '';
+    cartTotalPrice.textContent = 'NT$0';
+    document.getElementById('empty-cart-message').classList.add('empty-cart');
+    console.log(response);
+  })
+})
+
 //表單驗證( 使用 validate套件)
 const orderInfoForm = document.querySelector(".orderInfo-form");
 const customerName = document.querySelector("#customerName");
