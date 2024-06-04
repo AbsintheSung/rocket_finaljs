@@ -15,7 +15,8 @@ const productName = document.querySelector('.product-name');
 const originalPrice = document.querySelector('.original-price');
 const salePrice = document.querySelector('.sale-price');
 
-
+const cartItems = document.querySelector('.cart-items');
+const cartTotalPrice = document.querySelector('.total-price');
 
 
 
@@ -69,36 +70,37 @@ getProductList();
 //監聽篩選選單
 productCategory.addEventListener('change', checkProduct);
 
-const obj =  {
-    "data": {
-      "productId": "wgN3j5LRIItJpMXnpM3t",
-      "quantity": 5
-    }
-  }
 
-//加入購物車
-const addCartItem = () =>{
-    axios.post(cartUrl, obj)
-  .then(function (response) {
+//取得購物車
+axios.get(cartUrl)
+  .then(response => {
     console.log(response.data);
+    const cartData = renderCartItem(response.data.carts);
+    cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
+    renderHtml(cartItems, cartData);
   })
-  .catch(function (error) {
+  .catch(error => {
     console.log(error);
   });
 
-}
 
-//取得購物車列表
+//渲染購物車
+const renderCartItem = (data) => {
+    return data.map(obj => `
+      <tr class="cart-items">
+        <td>
+          <div class="items-title">
+            <img src="${obj.product.images}" alt="產品圖片">
+            <p>${obj.product.title}</p>
+          </div>
+        </td>
+        <td>${obj.product.price}</td>
+        <td>${obj.quantity}</td>
+        <td>${obj.product.price * obj.quantity}</td>
+        <td class="cancel-button">
+          <a href="#" class="material-icons" data-cart-id="${obj.id}">clear</a>
+        </td>
+      </tr>`).join('');
+  };
 
-const getCartList = () => {
 
-axios.post(cartUrl, obj)
-  .then(function (response) {
-    console.log(response.data);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
-
-getCartList();
