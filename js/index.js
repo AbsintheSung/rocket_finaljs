@@ -17,6 +17,8 @@ const salePrice = document.querySelector('.sale-price');
 
 const cartItems = document.querySelector('.cart-items');
 const cartTotalPrice = document.querySelector('.total-price');
+const cancelButton = document.querySelector('.cancel-button .material-icons');
+const cancelAllButton = document.querySelector('.cancel-all-button')
 
 
 
@@ -98,7 +100,7 @@ const renderCartItem = (data) => {
         <td>${obj.quantity}</td>
         <td>${obj.product.price * obj.quantity}</td>
         <td class="cancel-button">
-          <a href="#" class="material-icons" data-cart-id="${obj.id}">clear</a>
+        <button type="button" class="material-icons" data-cart-id="${obj.id}">clear</button>
         </td>
       </tr>`).join('');
   };
@@ -125,4 +127,5 @@ productList.addEventListener('click', event => {
       addCart(productData);
     }
   });
+
 
