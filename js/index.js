@@ -134,7 +134,8 @@ cancelAllButton.addEventListener('click',() => {
   axios.delete(cartUrl).then((response) =>{
     cartList.innerHTML = '';
     cartTotalPrice.textContent = 'NT$0';
-    document.getElementById('empty-cart-message').classList.add('empty-cart');
+    document.querySelector('.cart-table').classList.add('cart-table-hidden');  
+    document.getElementById('empty-cart-message').classList.add('empty-cart'); 
     console.log(response);
   })
 })
