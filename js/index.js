@@ -70,18 +70,26 @@ getProductList();
 //監聽篩選選單
 productCategory.addEventListener("change", checkProduct);
 
-//取得購物車
-axios
-  .get(cartUrl)
-  .then((response) => {
-    console.log(response.data);
-    const cartData = renderCartItem(response.data.carts);
-    cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
-    renderHtml(cartList, cartData);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+const updateCart = () => {
+  axios
+    .get(cartUrl)
+    .then((response) => {
+      const cartData = renderCartItem(response.data.carts);
+      cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
+      renderHtml(cartList, cartData);
+
+      if (response.data.carts.length === 0) {
+        document.querySelector('.cart-table').classList.add('cart-table-hidden');
+        document.getElementById('empty-cart-message').classList.add('empty-cart');
+      } else {
+        document.querySelector('.cart-table').classList.remove('cart-table-hidden');
+        document.getElementById('empty-cart-message').classList.remove('empty-cart');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 //渲染購物車
 const renderCartItem = (data) => {
@@ -107,11 +115,9 @@ const renderCartItem = (data) => {
 };
 
 //加入購物車
-function addCart(data) {
+const addCart = (data) => {
   axios.post(cartUrl, data).then((response) => {
-    const cartData = renderCartItem(response.data.carts);
-    renderHtml(cartList, cartData);
-    cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
+    updateCart(); // 更新购物车状态
   });
 }
 
@@ -138,7 +144,12 @@ cancelAllButton.addEventListener('click',() => {
     document.getElementById('empty-cart-message').classList.add('empty-cart'); 
     console.log(response);
   })
-})
+  .catch((error) => {
+    console.error(error);
+  });
+});
+
+updateCart();
 
 //表單驗證( 使用 validate套件)
 const orderInfoForm = document.querySelector(".orderInfo-form");
