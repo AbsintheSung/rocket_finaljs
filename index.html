@@ -11,9 +11,9 @@
     />
     
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-    <script type="module" crossorigin src="/rocket_finaljs/assets/index-4f39dd1d.js"></script>
-    <link rel="modulepreload" crossorigin href="/rocket_finaljs/assets/swal-6bab203b.js">
-    <link rel="stylesheet" href="/rocket_finaljs/assets/swal-f447444a.css">
+    <script type="module" crossorigin src="/rocket_finaljs/assets/index-505fd692.js"></script>
+    <link rel="modulepreload" crossorigin href="/rocket_finaljs/assets/swal-46d26614.js">
+    <link rel="stylesheet" href="/rocket_finaljs/assets/swal-e04373d5.css">
   </head>
 
   <body>
@@ -251,7 +251,7 @@
           <h2>我的購物車</h2>
           <div class="cart-overflow">
             <table class="cart-table">
-              <tbody>
+              
                 <tr class="table-header">
                   <th width="40%">品項</th>
                   <th width="15%">單價</th>
@@ -259,6 +259,7 @@
                   <th width="15%">金額</th>
                   <th width="15%"></th>
                 </tr>
+                <tbody class="cart-list">
                 <tr class="cart-items">
                   <td>
                     <div class="items-title">
@@ -273,11 +274,13 @@
                     <a href="#" class="material-icons"> clear </a>
                   </td>
                 </tr>
+              </tbody>
                 <td>
                   <button type="button" class="cancel-all-button">
                     刪除所有品項
                   </button>
                 </td>
+              
                 <td></td>
                 <td></td>
                 <td>
@@ -286,8 +289,9 @@
                 <td>
                   <p class="total-price">NT12,000</p>
                 </td>
-              </tbody>
+              
             </table>
+          <p id="empty-cart-message" class="empty-cart-message">購物車內沒有商品，快來新增喔～</p>
           </div>
         </div>
       </section>
