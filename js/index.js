@@ -42,7 +42,7 @@ const renderProducts = (products) => {
             `<li class="product-cards" data-category="${obj.category}">
             <span class="product-type">新品</span> 
             <img class="product-img" src="${obj.images}">
-            <a href="#" alt="加入購物車" class="add-product" data-id="${obj.id}">加入購物車</a>
+            <button type="button" class="add-product" data-id="${obj.id}">加入購物車</button>
             <h3 class="product-name">${obj.title}</h3>
             <del class="original-price">NT$${obj.origin_price}</del>
             <p class="sale-price">NT$${obj.price}</p>
@@ -103,4 +103,24 @@ const renderCartItem = (data) => {
       </tr>`).join('');
   };
 
+//加入購物車
+function addCart(data){
+    axios.post(cartUrl,data).then((response) =>{
+        const cartData = renderCartItem(response.data.carts);
+        renderHtml(cartItems, cartData);
+        cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
+    })
+}
+
+productList.addEventListener('click', (e) => {
+    if (e.target.getAttribute('data-id')) {
+      let productData = {
+        data: {
+          productId: e.target.getAttribute('data-id'),
+          quantity: 1,
+        },
+      };
+      addCart(productData);
+    }
+  });
 
