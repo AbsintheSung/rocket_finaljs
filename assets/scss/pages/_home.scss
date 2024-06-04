@@ -411,7 +411,8 @@ main{
 
 .cancel-button{
   text-align: center;
-    a{
+  cursor: pointer;
+    p{
       color: #000;
     &:hover{
     font-size: 28px;
@@ -442,6 +443,19 @@ main{
   @include Medium{
     overflow-x: scroll;
   }
+}
+
+.empty-cart-message {
+  display: none;
+  text-align: center;
+  font-size: 20px;
+  color: #000000;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.empty-cart {
+  display: block;
 }
 
 //預定資料表單區

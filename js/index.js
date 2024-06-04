@@ -99,9 +99,7 @@ const renderCartItem = (data) => {
         <td>${obj.quantity}</td>
         <td>${obj.product.price * obj.quantity}</td>
         <td class="cancel-button">
-        <button type="button" class="material-icons" data-cart-id="${
-          obj.id
-        }">clear</button>
+        <p class="material-icons" data-cart-id="${obj.id}">clear</p>
         </td>
       </tr>`
     )
