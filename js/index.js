@@ -15,6 +15,7 @@ const originalPrice = document.querySelector(".original-price");
 const salePrice = document.querySelector(".sale-price");
 
 const cartItems = document.querySelector(".cart-items");
+const cartList = document.querySelector(".cart-list");
 const cartTotalPrice = document.querySelector(".total-price");
 const cancelButton = document.querySelector(".cancel-button .material-icons");
 const cancelAllButton = document.querySelector(".cancel-all-button");
@@ -76,7 +77,7 @@ axios
     console.log(response.data);
     const cartData = renderCartItem(response.data.carts);
     cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
-    renderHtml(cartItems, cartData);
+    renderHtml(cartList, cartData);
   })
   .catch((error) => {
     console.log(error);
@@ -98,9 +99,7 @@ const renderCartItem = (data) => {
         <td>${obj.quantity}</td>
         <td>${obj.product.price * obj.quantity}</td>
         <td class="cancel-button">
-        <button type="button" class="material-icons" data-cart-id="${
-          obj.id
-        }">clear</button>
+        <p class="material-icons" data-cart-id="${obj.id}">clear</p>
         </td>
       </tr>`
     )
@@ -111,7 +110,7 @@ const renderCartItem = (data) => {
 function addCart(data) {
   axios.post(cartUrl, data).then((response) => {
     const cartData = renderCartItem(response.data.carts);
-    renderHtml(cartItems, cartData);
+    renderHtml(cartList, cartData);
     cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
   });
 }
@@ -178,7 +177,7 @@ async function sendOrder(data) {
           console.log(response.data);
           const cartData = renderCartItem(response.data.carts);
           cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
-          renderHtml(cartItems, cartData);
+          renderHtml(cartList, cartData);
         })
         .catch((error) => {
           console.log(error);
