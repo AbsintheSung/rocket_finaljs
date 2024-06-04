@@ -1,3 +1,4 @@
+import axios from "axios";
 import { loading, toast, sweetalert } from "./swal";
 //API們
 const apiPath = "yixuan";
@@ -17,7 +18,7 @@ const salePrice = document.querySelector(".sale-price");
 const cartItems = document.querySelector(".cart-items");
 const cartList = document.querySelector(".cart-list");
 const cartTotalPrice = document.querySelector(".total-price");
-const cancelButton = document.querySelector(".cancel-button .material-icons");
+const cancelButton = document.querySelectorAll(".cancel-button .material-icons");
 const cancelAllButton = document.querySelector(".cancel-all-button");
 
 let productsData = [];
@@ -70,18 +71,34 @@ getProductList();
 //監聽篩選選單
 productCategory.addEventListener("change", checkProduct);
 
-//取得購物車
-axios
-  .get(cartUrl)
-  .then((response) => {
-    console.log(response.data);
-    const cartData = renderCartItem(response.data.carts);
-    cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
-    renderHtml(cartList, cartData);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+const updateCart = () => {
+  axios
+    .get(cartUrl)
+    .then((response) => {
+      const cartData = renderCartItem(response.data.carts);
+      cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
+      renderHtml(cartList, cartData);
+
+      //若購物車為空則顯示快加入訊息
+      if (response.data.carts.length === 0) {
+        document.querySelector('.cart-table').classList.add('cart-table-hidden');
+        document.getElementById('empty-cart-message').classList.add('empty-cart');
+      } else {
+        document.querySelector('.cart-table').classList.remove('cart-table-hidden');
+        document.getElementById('empty-cart-message').classList.remove('empty-cart');
+      }
+      //刪除按鈕的監聽事件
+      document.querySelectorAll('.material-icons').forEach(button => {
+        button.addEventListener('click', (event) => {
+          const cartId = event.target.getAttribute('data-cart-id');
+          console.log(cartId);
+        });
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 //渲染購物車
 const renderCartItem = (data) => {
@@ -107,11 +124,9 @@ const renderCartItem = (data) => {
 };
 
 //加入購物車
-function addCart(data) {
+const addCart = (data) => {
   axios.post(cartUrl, data).then((response) => {
-    const cartData = renderCartItem(response.data.carts);
-    renderHtml(cartList, cartData);
-    cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
+    updateCart(); 
   });
 }
 
@@ -128,6 +143,45 @@ productList.addEventListener("click", (event) => {
     addCart(productData);
   }
 });
+
+//刪除購物車所有品項
+cancelAllButton.addEventListener('click',() => {
+  axios.delete(cartUrl).then((response) =>{
+    cartList.innerHTML = '';
+    cartTotalPrice.textContent = 'NT$0';
+    document.querySelector('.cart-table').classList.add('cart-table-hidden');  
+    document.getElementById('empty-cart-message').classList.add('empty-cart'); 
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+});
+
+//刪除購物車指定品項
+// cancelButton.addEventListener('click',() => {
+//   axios.delete(`${cartUrl}/${cartId}`).then((response) =>{ 
+//     const cartId = getAttribute('data-cart-id');
+//     console.log(cartId);
+//     console.log(response)
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
+// });
+
+// cancelButton.forEach(button => {
+//   button.addEventListener('click', function(event) {
+//     const cartId = this.getAttribute('data-cart-id'); // 使用普通函数来获取正确的 this
+//     console.log(cartId);
+//     axios.delete(`${cartUrl}/${cartId}`).then((response) =>{ 
+//           console.log(response)
+//         })
+//   });
+// });
+
+
+
+updateCart();
 
 //表單驗證( 使用 validate套件)
 const orderInfoForm = document.querySelector(".orderInfo-form");

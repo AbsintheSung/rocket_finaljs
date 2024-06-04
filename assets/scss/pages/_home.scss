@@ -448,14 +448,17 @@ main{
 .empty-cart-message {
   display: none;
   text-align: center;
-  font-size: 20px;
+  font-size: 28px;
   color: #000000;
   font-weight: bold;
-  margin-top: 20px;
 }
 
 .empty-cart {
   display: block;
+}
+
+.cart-table-hidden{
+  display: none;
 }
 
 //預定資料表單區
