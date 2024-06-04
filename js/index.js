@@ -112,13 +112,15 @@ function addCart(data){
     })
 }
 
-productList.addEventListener('click', (e) => {
-    if (e.target.getAttribute('data-id')) {
-      let productData = {
+//點擊加入購物車並新增至頁面上
+productList.addEventListener('click', event => {
+    const productId = event.target.getAttribute('data-id');
+    if (productId) {
+      const productData = {
         data: {
-          productId: e.target.getAttribute('data-id'),
-          quantity: 1,
-        },
+          productId: productId,
+          quantity: 1
+        }
       };
       addCart(productData);
     }
