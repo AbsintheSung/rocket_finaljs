@@ -87,13 +87,8 @@ const updateCart = () => {
         document.querySelector('.cart-table').classList.remove('cart-table-hidden');
         document.getElementById('empty-cart-message').classList.remove('empty-cart');
       }
-      //刪除按鈕的監聽事件
-      document.querySelectorAll('.material-icons').forEach(button => {
-        button.addEventListener('click', (event) => {
-          const cartId = event.target.getAttribute('data-cart-id');
-          console.log(cartId);
-        });
-      });
+      // 在更新購物車後附加刪除按鈕的監聽事件
+      attachDeleteButtonEvents();
     })
     .catch((error) => {
       console.log(error);
@@ -157,28 +152,26 @@ cancelAllButton.addEventListener('click',() => {
   });
 });
 
-//刪除購物車指定品項
-// cancelButton.addEventListener('click',() => {
-//   axios.delete(`${cartUrl}/${cartId}`).then((response) =>{ 
-//     const cartId = getAttribute('data-cart-id');
-//     console.log(cartId);
-//     console.log(response)
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });
-// });
+// 刪除購物車指定品項
+const deleteCartItem = (cartId) => {
+  axios.delete(`${cartUrl}/${cartId}`)
+    .then((response) => {
+      updateCart(); 
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 
-// cancelButton.forEach(button => {
-//   button.addEventListener('click', function(event) {
-//     const cartId = this.getAttribute('data-cart-id'); // 使用普通函数来获取正确的 this
-//     console.log(cartId);
-//     axios.delete(`${cartUrl}/${cartId}`).then((response) =>{ 
-//           console.log(response)
-//         })
-//   });
-// });
-
+// 附加刪除按鈕的監聽事件
+const attachDeleteButtonEvents = () => {
+  document.querySelectorAll('.material-icons').forEach(button => {
+    button.addEventListener('click', function(event) {
+      const cartId = this.getAttribute('data-cart-id');
+      deleteCartItem(cartId); 
+    });
+  });
+}
 
 
 updateCart();
@@ -228,7 +221,6 @@ async function sendOrder(data) {
       axios
         .get(cartUrl)
         .then((response) => {
-          console.log(response.data);
           const cartData = renderCartItem(response.data.carts);
           cartTotalPrice.textContent = `NT$${response.data.finalTotal}`;
           renderHtml(cartList, cartData);
