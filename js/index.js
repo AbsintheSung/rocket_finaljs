@@ -7,18 +7,10 @@ const cartUrl = `https://livejs-api.hexschool.io/api/livejs/v1/customer/${apiPat
 const formUrl = `https://livejs-api.hexschool.io/api/livejs/v1/customer/${apiPath}/orders`;
 //網頁元素們
 const productCategory = document.querySelector(".product-category");
-
 const productList = document.querySelector(".product-list");
-const productImg = document.querySelector(".product-img");
-const addProduct = document.querySelector(".add-product");
-const productName = document.querySelector(".product-name");
-const originalPrice = document.querySelector(".original-price");
-const salePrice = document.querySelector(".sale-price");
 
-const cartItems = document.querySelector(".cart-items");
 const cartList = document.querySelector(".cart-list");
 const cartTotalPrice = document.querySelector(".total-price");
-const cancelButton = document.querySelectorAll(".cancel-button .material-icons");
 const cancelAllButton = document.querySelector(".cancel-all-button");
 
 let productsData = [];
@@ -71,6 +63,7 @@ getProductList();
 //監聽篩選選單
 productCategory.addEventListener("change", checkProduct);
 
+// 更新購物車
 const updateCart = () => {
   axios
     .get(cartUrl)
@@ -121,7 +114,7 @@ const renderCartItem = (data) => {
 //加入購物車
 const addCart = (data) => {
   axios.post(cartUrl, data).then((response) => {
-    updateCart(); 
+    updateCart();
   });
 }
 
@@ -140,23 +133,23 @@ productList.addEventListener("click", (event) => {
 });
 
 //刪除購物車所有品項
-cancelAllButton.addEventListener('click',() => {
-  axios.delete(cartUrl).then((response) =>{
+cancelAllButton.addEventListener('click', () => {
+  axios.delete(cartUrl).then((response) => {
     cartList.innerHTML = '';
     cartTotalPrice.textContent = 'NT$0';
-    document.querySelector('.cart-table').classList.add('cart-table-hidden');  
-    document.getElementById('empty-cart-message').classList.add('empty-cart'); 
+    document.querySelector('.cart-table').classList.add('cart-table-hidden');
+    document.getElementById('empty-cart-message').classList.add('empty-cart');
   })
-  .catch((error) => {
-    console.error(error);
-  });
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // 刪除購物車指定品項
 const deleteCartItem = (cartId) => {
   axios.delete(`${cartUrl}/${cartId}`)
     .then((response) => {
-      updateCart(); 
+      updateCart();
     })
     .catch((error) => {
       console.error(error);
@@ -166,9 +159,9 @@ const deleteCartItem = (cartId) => {
 // 附加刪除按鈕的監聽事件
 const attachDeleteButtonEvents = () => {
   document.querySelectorAll('.material-icons').forEach(button => {
-    button.addEventListener('click', function(event) {
+    button.addEventListener('click', function (event) {
       const cartId = this.getAttribute('data-cart-id');
-      deleteCartItem(cartId); 
+      deleteCartItem(cartId);
     });
   });
 }
