@@ -121,7 +121,7 @@ const renderCartItem = (data) => {
 //加入購物車
 const addCart = (data) => {
   axios.post(cartUrl, data).then((response) => {
-    updateCart(); 
+    updateCart();
   });
 }
 
@@ -140,23 +140,23 @@ productList.addEventListener("click", (event) => {
 });
 
 //刪除購物車所有品項
-cancelAllButton.addEventListener('click',() => {
-  axios.delete(cartUrl).then((response) =>{
+cancelAllButton.addEventListener('click', () => {
+  axios.delete(cartUrl).then((response) => {
     cartList.innerHTML = '';
     cartTotalPrice.textContent = 'NT$0';
-    document.querySelector('.cart-table').classList.add('cart-table-hidden');  
-    document.getElementById('empty-cart-message').classList.add('empty-cart'); 
+    document.querySelector('.cart-table').classList.add('cart-table-hidden');
+    document.getElementById('empty-cart-message').classList.add('empty-cart');
   })
-  .catch((error) => {
-    console.error(error);
-  });
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // 刪除購物車指定品項
 const deleteCartItem = (cartId) => {
   axios.delete(`${cartUrl}/${cartId}`)
     .then((response) => {
-      updateCart(); 
+      updateCart();
     })
     .catch((error) => {
       console.error(error);
@@ -166,9 +166,9 @@ const deleteCartItem = (cartId) => {
 // 附加刪除按鈕的監聽事件
 const attachDeleteButtonEvents = () => {
   document.querySelectorAll('.material-icons').forEach(button => {
-    button.addEventListener('click', function(event) {
+    button.addEventListener('click', function (event) {
       const cartId = this.getAttribute('data-cart-id');
-      deleteCartItem(cartId); 
+      deleteCartItem(cartId);
     });
   });
 }
